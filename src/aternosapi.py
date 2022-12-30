@@ -2,13 +2,17 @@ from python_aternos import Client
 import bot
 import asyncio
 
-async def logIn(channel):
+async def logIn(channel, guildID):
     global aternos, serverID
-    aternos = Client.restore_session('../config/aternosLogin.txt')
+    try:
+        aternos = Client.restore_session('../config/'+guildID+'/aternosLogin.txt')
+    except:
+        await bot.send_message("Login to aternos failed, please insert new cookie", channel)
+        return False
     if(len(aternos.list_servers())) == 0:
         await bot.send_message("Login to aternos failed, please insert new cookie", channel)
         return False
-    serverID = open('../config/aternosServer.txt').read()
+    serverID = open('../config/'+guildID+'/aternosServer.txt').read()
     return True
 async def getServer(channel):
     try:
@@ -19,9 +23,9 @@ async def getServer(channel):
     if(server == None):
         await bot.send_message("Can't reach server", channel)
     return server
-async def startServer(channel):
-    asyncio.sleep(1)
-    if not await logIn(channel):
+async def startServer(channel,guildID):
+    await asyncio.sleep(1)
+    if not await logIn(channel,guildID):
         return
     server = await getServer(channel)
     if(server == None):
