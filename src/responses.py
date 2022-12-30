@@ -38,5 +38,3 @@ async def handle_response(message) -> str:
             return "Set login Cookie to " + split[1]
     elif p_message.startswith("!help"):
         return helpFile()
-    else:
-        return "nothing"
