@@ -22,7 +22,8 @@ def run_bot():
     async def on_message(message):
         if message.author == client.user:
             return
-        response = await responses.handle_response(message)
-        await send_message(response,message.channel)
+        if str(message.content).startswith("!"):
+            response = await responses.handle_response(message)
+            await send_message(response,message.channel)
     
     client.run(TOKEN)
