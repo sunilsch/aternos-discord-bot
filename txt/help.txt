@@ -1,0 +1,4 @@
+Commands:
+-> !start: start MC Server
+-> !set-server-id: set id of server (only admin)
+-> !set-login-cookie: set login cookie (only admin)
